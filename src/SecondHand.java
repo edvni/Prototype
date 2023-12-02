@@ -1,25 +1,16 @@
-public class SecondHand {
-    private int seconds;
+public class SecondHand extends Hand {
+    private static final int MAX_SECONDS = 59;
 
-    public SecondHand(int seconds) {
-        System.out.println("Creating second hand object...");
-        this.seconds = seconds;
-    }
-
-    private SecondHand(SecondHand secondhand) {
-        this.seconds = secondhand.seconds;
+    @Override
+    public void set(int seconds) {
+        if (seconds < 0 || seconds > MAX_SECONDS) {
+            throw new IllegalArgumentException("Invalid second: " + seconds);
+        }
+        super.set(seconds);
     }
 
     @Override
-    public SecondHand clone() {
-        return new SecondHand(this);
-    }
-
-    public int getSeconds() {
-        return seconds;
-    }
-
-    public void setSeconds(int seconds) {
-        this.seconds = seconds;
+    public String toString() {
+        return super.toString();
     }
 }

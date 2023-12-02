@@ -1,25 +1,16 @@
-public class MinuteHand implements IPrototype {
-    private int minutes;
+public class MinuteHand extends Hand {
+    private static final int MAX_MINUTES = 59;
 
-    public MinuteHand(int minutes) {
-        System.out.println("Creating minute hand object...");
-        this.minutes = minutes;
-    }
-
-    private MinuteHand(MinuteHand minutehand) {
-        this.minutes = minutehand.minutes;
+    @Override
+    public void set(int minutes) {
+        if (minutes < 0 || minutes > MAX_MINUTES) {
+            throw new IllegalArgumentException("Invalid minute: " + minutes);
+        }
+        super.set(minutes);
     }
 
     @Override
-    public MinuteHand clone() {
-        return new MinuteHand(this);
-    }
-
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
+    public String toString() {
+        return super.toString();
     }
 }

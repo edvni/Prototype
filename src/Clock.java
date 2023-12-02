@@ -1,51 +1,43 @@
-public class Clock implements IPrototype {
+public class Clock implements IPrototype, Cloneable {
     private HourHand hourhand;
     private MinuteHand minutehand;
     private SecondHand secondhand;
 
-    public Clock(HourHand hourhand, MinuteHand minutehand, SecondHand secondhand) {
-        this.hourhand = hourhand;
-        this.minutehand = minutehand;
-        this.secondhand = secondhand;
+    public Clock() {
+        hourhand = new HourHand();
+        minutehand = new MinuteHand();
+        secondhand = new SecondHand();
     }
 
-    private Clock(Clock clock) {
-        this.hourhand = clock.hourhand.clone();
-        this.minutehand = clock.minutehand.clone();
-        this.secondhand = clock.secondhand.clone();
+    public void setHands(int hours, int minutes, int seconds) {
+        hourhand.set(hours);
+        minutehand.set(minutes);
+        secondhand.set(seconds);
     }
 
-    @Override
-    public Clock clone() {
-        return new Clock(this);
+    public void showTime() {
+        System.out.println(hourhand + ":" + minutehand + ":" + secondhand);
     }
 
-    public HourHand getHourHand() {
-        return hourhand;
+    public IPrototype clone() {
+        try {
+            Clock clonedClock = (Clock) super.clone();
+            clonedClock.hourhand = (HourHand) hourhand.clone();
+            clonedClock.minutehand = (MinuteHand) minutehand.clone();
+            clonedClock.secondhand = (SecondHand) secondhand.clone();
+            return clonedClock;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void setHourHand(HourHand hourhand) {
-        this.hourhand = hourhand;
-    }
-
-    public MinuteHand getMinuteHand() {
-        return minutehand;
-    }
-
-    public void setMinuteHand(MinuteHand minutehand) {
-        this.minutehand = minutehand;
-    }
-
-    public SecondHand getSecondHand() {
-        return secondhand;
-    }
-
-    public void setSecondHand(SecondHand secondhand) {
-        this.secondhand = secondhand;
-    }
-
-    @Override
-    public String toString() {
-        return "Clock: " + hourhand.getHours() + ":" + minutehand.getMinutes() + ":" + secondhand.getSeconds();
+    public IPrototype shallowClone() {
+        try {
+            return (IPrototype) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

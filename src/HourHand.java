@@ -1,25 +1,16 @@
-public class HourHand implements IPrototype {
-    private int hours;
+public class HourHand extends Hand {
+    private static final int MAX_HOURS = 12;
 
-    public HourHand(int hours) {
-        System.out.println("Creating hour hand object...");
-        this.hours = hours;
-    }
-
-    private HourHand(HourHand hourhand) {
-        this.hours = hourhand.hours;
+    @Override
+    public void set(int hours) {
+        if (hours < 1 || hours > MAX_HOURS) {
+            throw new IllegalArgumentException("Invalid hour: " + hours);
+        }
+        super.set(hours);
     }
 
     @Override
-    public HourHand clone() {
-        return new HourHand(this);
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
+    public String toString() {
+        return super.toString();
     }
 }

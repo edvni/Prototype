@@ -1,37 +1,52 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Creating clock object...");
-        Clock clock = new Clock(new HourHand(12), new MinuteHand(0), new SecondHand(0));
+        // ------- Deep Copy -------
+        // make clock prototype
+        System.out.println("------------ Deep Copy ------------");
+        IPrototype originalClock = new Clock();
+        originalClock.setHands(12, 30, 45);
 
-        System.out.println("\nCreation complete\n");
+        // clone original clock
+        IPrototype clonedClock = originalClock.clone();
 
-        System.out.println("Cloning clock object...");
-        Clock clockClone = clock.clone();
-        System.out.println("Cloning hour hand object...");
-        HourHand hourHandClone = clockClone.getHourHand().clone();
-        System.out.println("Cloning minute hand object...");
-        MinuteHand minuteHandClone = clockClone.getMinuteHand().clone();
-        System.out.println("Cloning second hand object...");
-        SecondHand secondHandClone = clockClone.getSecondHand().clone();
+        // show original clock and cloned clocks
+        System.out.println("Original clock:");
+        originalClock.showTime();
 
-        System.out.println("\nCloning complete\n");
+        System.out.println("\nCloned clock:");
+        clonedClock.showTime();
 
-        System.out.println("Setting clock clone hour hand to 6...");
-        hourHandClone.setHours(6);
-        System.out.println("Setting clock clone minute hand to 30...");
-        minuteHandClone.setMinutes(30);
-        System.out.println("Setting clock clone second hand to 0...");
-        secondHandClone.setSeconds(0);
+        // change time of original clock
+        originalClock.setHands(3, 15, 30);
 
-        clockClone.setHourHand(hourHandClone);
-        clockClone.setMinuteHand(minuteHandClone);
-        clockClone.setSecondHand(secondHandClone);
-        System.out.println("\nSetting complete\n");
+        // show original clock and cloned clocks again
+        System.out.println("\nAfter changing original clock:");
+        System.out.println("Original clock:");
+        originalClock.showTime();
 
+        System.out.println("\nCloned clock:");
+        clonedClock.showTime();
 
-        System.out.println("Printing clock...");
-        System.out.println(clock);
-        System.out.println("Printing clock clone...");
-        System.out.println(clockClone);
+        // ------- Shallow Copy -------
+        System.out.println("------------ Shallow Copy ------------");
+        IPrototype originalClock2 = new Clock();
+        originalClock2.setHands(10, 10, 10);
+
+        IPrototype shallowClonedClock = originalClock2.shallowClone();
+
+        System.out.println("Original clock 2:");
+        originalClock2.showTime();
+
+        System.out.println("\nShallow cloned clock:");
+        shallowClonedClock.showTime();
+
+        originalClock2.setHands(11, 11, 11);
+
+        System.out.println("\nAfter changing original clock 2:");
+        System.out.println("Original clock 2:");
+        originalClock2.showTime();
+
+        System.out.println("\nShallow cloned clock:");
+        shallowClonedClock.showTime();
     }
 }
